@@ -20,5 +20,6 @@ stages:
       expire_in: 1 month
       paths:
         - MovieCruiser.Service/bin/Release/netcoreapp2.0/publish/
+        
 
 
