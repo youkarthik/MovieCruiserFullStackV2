@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MovieCruiser.Service.DB;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace MovieCruiser.Service
 {
@@ -26,6 +28,11 @@ namespace MovieCruiser.Service
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            //services.AddDbContext<MoviesDbContext>(x => x.usesqlserver)
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "MovieCruiser API", Version = "v1", Description = "MovieCruiser API Description" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +46,12 @@ namespace MovieCruiser.Service
             {
                 app.UseHsts();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("swagger/v1/swagger.json", "Movie Cruiser API");
+            });
 
             app.UseHttpsRedirection();
             app.UseMvc();
