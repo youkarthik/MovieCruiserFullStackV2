@@ -2,7 +2,7 @@ image : microsoft/dotnet:2.1-sdk
 stages:
  - compile
  - test
- - build
+ - publish
 compile:
  stage: compile
  script:
@@ -12,11 +12,11 @@ test:
  stage: test
  script: 
   - 'dotnet test MovieCruiser.Test/MovieCruiser.Test.csproj'
-build:
- stage: build
+publish:
+ stage: publish
  script:
    - 'dotnet publish MovieCruiser.Service -c Release'
  artifacts:
   expire_in: 1 month
   paths:
-   - MovieCruiser.Service/bin/Release/netcoreapp2.0/publish/
+   - MovieCruiser.Service/bin/Release/netcoreapp2.1/publish/
