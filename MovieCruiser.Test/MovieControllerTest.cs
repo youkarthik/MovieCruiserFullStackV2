@@ -65,8 +65,36 @@ namespace MovieCruiser.Test
         }
 
         [Fact]
+        public void DeleteMethod_ShouldReturnOkResult()
+        {
+            //arrange
+            int movieId = 10001;
+            var mockRepo = new Mock<IMovieService>();
+            mockRepo.Setup(x => x.DeleteMovie(movieId));
+            var controller = new MovieController(mockRepo.Object);
+
+            //act
+            var actual = controller.Delete(movieId);
+
+            //assert
+            Assert.IsType<OkResult>(actual);
+
+        }
+
+        [Fact]
         public void PutMehtod_ShouldReturnOkResult()
         {
+            //arrange
+            int movieId = 10003;
+            var mockRepo = new Mock<IMovieService>();
+            mockRepo.Setup(x => x.UpdateMovieComments(movieId, "test"));
+            var controller = new MovieController(mockRepo.Object);
+
+            //act
+            var actual = controller.Put(movieId, "test");
+
+            //assert
+            Assert.IsType<OkResult>(actual);
 
         }
 
