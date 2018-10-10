@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 
 using Moq;
@@ -26,6 +27,46 @@ namespace MovieCruiser.Test
             var result = Assert.IsType<OkObjectResult>(actual);
             Assert.IsAssignableFrom<IEnumerable<Movie>>(result.Value);
             
+
+        }
+
+        [Fact]
+        public void GetMethodWithParam_ShouldReturnAMovie()
+        {
+            //arrange
+            var testMovieId = 10001;
+            var mockRepo = new Mock<IMovieService>();
+            mockRepo.Setup(x => x.GetMovieById(testMovieId)).Returns(this.GetMovies().FirstOrDefault(x => x.Id == testMovieId));
+            var controller = new MovieController(mockRepo.Object);
+
+            //act
+            var actual = controller.Get(testMovieId);
+
+            //assert
+            var result = Assert.IsType<OkObjectResult>(actual);
+            Assert.IsAssignableFrom<Movie>(result.Value);
+        }
+
+        [Fact]
+        public void PostMethod_ShouldReturnPostedMovie()
+        {
+            //arrange
+            Movie newMovie = new Movie { Id = 10004, Name = "Spiderman", Comments = string.Empty, PosterPath = "spiderman.jpg", ReleaseDate = "13-10-2003", VoteCount = 82345, VoteAverage = 7.9 };
+            var mockRepo = new Mock<IMovieService>();
+            mockRepo.Setup(x => x.AddMovie(newMovie)).Returns(newMovie);
+            var controller = new MovieController(mockRepo.Object);
+
+            //act
+            var actual = controller.Post(newMovie);
+
+            //assert
+            var result = Assert.IsType<CreatedResult>(actual);
+            Assert.IsAssignableFrom<Movie>(result.Value);
+        }
+
+        [Fact]
+        public void PutMehtod_ShouldReturnOkResult()
+        {
 
         }
 

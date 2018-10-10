@@ -32,7 +32,7 @@ namespace MovieCruiser.Service
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddDbContext<MoviesDbContext>(x => x.UseSqlServer("server=.\\sqlexpress;database=MoviesDb; integrated security=true;"));
+            services.AddDbContext<MoviesDbContext>(x => x.UseSqlServer(Configuration.GetConnectionString("MoviesDbContext")));
 
             //injecting dependencies
             services.AddScoped<IMoviesDbContext, MoviesDbContext>();
