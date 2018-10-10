@@ -14,9 +14,30 @@ namespace MovieCruiser.Service.Services
         {
             _repository = repository;
         }
+
+        public Movie AddMovie(Movie movie)
+        {
+            return _repository.AddMovie(movie);
+        }
+
+        public void DeleteMovie(int id)
+        {
+            _repository.DeleteMovie(id);
+        }
+
         public List<Movie> GetAllMovies()
         {
             return _repository.GetAllMovies();
+        }
+
+        public Movie GetMovieById(int id)
+        {
+            return _repository.GetMovieById(id);
+        }
+
+        public void UpdateMovieComments(int id, string comments)
+        {
+            _repository.UpdateMovieComments(id, comments);
         }
     }
 }

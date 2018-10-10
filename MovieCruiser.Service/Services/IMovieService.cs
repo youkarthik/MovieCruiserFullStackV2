@@ -9,5 +9,9 @@ namespace MovieCruiser.Service.Services
     public interface IMovieService
     {
         List<Movie> GetAllMovies();
+        Movie GetMovieById(int id);
+        Movie AddMovie(Movie movie);
+        void UpdateMovieComments(int id, string comments);
+        void DeleteMovie(int id);
     }
 }

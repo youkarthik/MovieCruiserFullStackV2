@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -31,7 +32,7 @@ namespace MovieCruiser.Service
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            //services.AddDbContext<MoviesDbContext>(x => x.usesqlserver)
+            services.AddDbContext<MoviesDbContext>(x => x.UseSqlServer("server=.\\sqlexpress;database=MoviesDb; integrated security=true;"));
 
             //injecting dependencies
             services.AddScoped<IMoviesDbContext, MoviesDbContext>();
@@ -60,7 +61,7 @@ namespace MovieCruiser.Service
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("swagger/v1/swagger.json", "Movie Cruiser API");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Movie Cruiser API");
             });
 
             //app.UseHttpsRedirection();
