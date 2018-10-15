@@ -16,11 +16,20 @@ namespace MovieCruiser.Service.Controllers
     {
         private readonly IMovieService _service;
 
+        /// <summary>
+        /// Movie Controller constuctor
+        /// </summary>
+        /// <param name="service">injecting service layer object</param>
         public MovieController(IMovieService service)
         {
             _service = service;
         }
-        // GET: api/<controller>
+        
+        
+        /// <summary>
+        /// Movie Get opertaion without parameter
+        /// </summary>
+        /// <returns>Ok object result with list of all movies</returns>
         [HttpGet]
         public IActionResult Get()
         {
@@ -35,6 +44,11 @@ namespace MovieCruiser.Service.Controllers
             }
         }
 
+        /// <summary>
+        /// Movie Get operration with id as paramenter
+        /// </summary>
+        /// <param name="id">Movie key id</param>
+        /// <returns>Single Movie object if exists</returns>
         [HttpGet("{id}")]
         public IActionResult Get([FromRoute] int id)
         {
