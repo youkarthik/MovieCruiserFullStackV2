@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace MovieCruiser.Service.DataAccess
 {
+    /// <summary>
+    /// Movie repository interface
+    /// </summary>
     public interface IMovieRepository
     {
         List<Movie> GetAllMovies();

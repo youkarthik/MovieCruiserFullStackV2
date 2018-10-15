@@ -29,7 +29,7 @@ namespace MovieCruiser.Service.Controllers
         /// <summary>
         /// Movie Get opertaion without parameter
         /// </summary>
-        /// <returns>Ok object result with list of all movies</returns>
+        /// <returns>Ok object result containing list of all movies</returns>
         [HttpGet]
         public IActionResult Get()
         {
@@ -72,6 +72,11 @@ namespace MovieCruiser.Service.Controllers
             }
         }
 
+        /// <summary>
+        /// Post method to add a new movie
+        /// </summary>
+        /// <param name="movie">Movie object</param>
+        /// <returns>Status code based on the operation status</returns>
         [HttpPost]
         public IActionResult Post([FromBody] Movie movie)
         {
@@ -95,6 +100,11 @@ namespace MovieCruiser.Service.Controllers
             }
         }
 
+        /// <summary>
+        /// Delete method to delete a movie by its id from the collection
+        /// </summary>
+        /// <param name="id">movie object key identifier</param>
+        /// <returns>Status code based on the operation status</returns>
         [HttpDelete("{id}")]
         public IActionResult Delete([FromRoute] int id)
         {
@@ -119,6 +129,12 @@ namespace MovieCruiser.Service.Controllers
             }
         }
 
+        /// <summary>
+        /// Put method to update he comments field of a particular movie based on its id
+        /// </summary>
+        /// <param name="id">movie object key identifier</param>
+        /// <param name="comment">comment string</param>
+        /// <returns>Status code based on the operation status</returns>
         [HttpPut("{id}")]
         public IActionResult Put([FromRoute] int id, [FromBody] string comment)
         {

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace MovieCruiser.Service.DB
 {
+    /// <summary>
+    /// MOvie db context interface
+    /// </summary>
     public interface IMoviesDbContext
     {
         DbSet<Movie> Movies { get; set; }

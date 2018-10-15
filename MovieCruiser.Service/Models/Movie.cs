@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace MovieCruiser.Service.Models
 {
+    /// <summary>
+    /// Movie model
+    /// </summary>
     public class Movie
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]

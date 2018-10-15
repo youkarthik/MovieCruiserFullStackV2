@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace MovieCruiser.Service.Services
 {
+    /// <summary>
+    /// Movie Service Interface
+    /// </summary>
     public interface IMovieService
     {
         List<Movie> GetAllMovies();

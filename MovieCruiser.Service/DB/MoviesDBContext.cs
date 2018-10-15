@@ -9,6 +9,11 @@ namespace MovieCruiser.Service.DB
         {
 
         }
+
+        /// <summary>
+        /// Movies db context constructor
+        /// </summary>
+        /// <param name="options"></param>
         public MoviesDbContext(DbContextOptions options) : base (options)
         {
             Database.EnsureCreated();
