@@ -86,7 +86,7 @@ namespace MovieCruiser.Test
         public void DeleteMovie_ShouldNotThrowException()
         {
             //arrange
-            var movieId = 10002;
+            var movieId = 10003;
             var mockRepo = new Mock<IMovieRepository>();
             mockRepo.Setup(x => x.DeleteMovie(movieId));
             var service = new MovieService(mockRepo.Object);

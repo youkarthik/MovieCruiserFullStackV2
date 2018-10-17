@@ -31,7 +31,7 @@ namespace MovieCruiser.Test
         }
 
         [Fact]
-        public void GetMethodWithParam_ShouldReturnAMovie()
+        public void GetMethodWithParam_ShouldReturnAMovieOnValidId()
         {
             //arrange
             var testMovieId = 10001;
@@ -47,8 +47,24 @@ namespace MovieCruiser.Test
             Assert.IsAssignableFrom<Movie>(result.Value);
         }
 
+        [Fact]//negative
+        public void GetMethodWithParam_ShouldReturnNotFoundStatusOnInvalidId()
+        {
+            //arrange
+            var testMovieId = 10006;
+            var mockRepo = new Mock<IMovieService>();
+            mockRepo.Setup(x => x.GetMovieById(testMovieId)).Returns(() =>  throw new System.ArgumentException() );
+            var controller = new MovieController(mockRepo.Object);
+
+            //act
+            var actual = controller.Get(testMovieId);
+
+            //assert
+            var result = Assert.IsType<NotFoundObjectResult>(actual);
+        }
+
         [Fact]
-        public void PostMethod_ShouldReturnPostedMovie()
+        public void PostMethod_ShouldReturnPostedMovieOnValidId()
         {
             //arrange
             Movie newMovie = new Movie { Id = 10004, Name = "Spiderman", Comments = string.Empty, PosterPath = "spiderman.jpg", ReleaseDate = "13-10-2003", VoteCount = 82345, VoteAverage = 7.9 };
@@ -64,8 +80,26 @@ namespace MovieCruiser.Test
             Assert.IsAssignableFrom<Movie>(result.Value);
         }
 
+        //negative
         [Fact]
-        public void DeleteMethod_ShouldReturnOkResult()
+        public void PostMethod_ShouldReturn409OnInvalidId()
+        {
+            //arrange
+            Movie newMovie = new Movie { Id = 10004, Name = "Spiderman", Comments = string.Empty, PosterPath = "spiderman.jpg", ReleaseDate = "13-10-2003", VoteCount = 82345, VoteAverage = 7.9 };
+            var mockRepo = new Mock<IMovieService>();
+            mockRepo.Setup(x => x.AddMovie(newMovie)).Returns(() => throw new System.ArgumentException());
+            var controller = new MovieController(mockRepo.Object);
+
+            //act
+            var actual = controller.Post(newMovie);
+
+            //assert
+            var result = Assert.IsType<ObjectResult>(actual);
+            Assert.True(result.StatusCode == 409);
+        }
+
+        [Fact]
+        public void DeleteMethod_ShouldReturnOkResultOnValidId()
         {
             //arrange
             int movieId = 10001;
@@ -82,7 +116,24 @@ namespace MovieCruiser.Test
         }
 
         [Fact]
-        public void PutMehtod_ShouldReturnOkResult()
+        public void DeleteMethod_ShouldReturnNotFoundtOnInValidId()
+        {
+            //arrange
+            int movieId = 10011;
+            var mockRepo = new Mock<IMovieService>();
+            mockRepo.Setup(x => x.DeleteMovie(movieId)).Throws<System.ArgumentException>();
+            var controller = new MovieController(mockRepo.Object);
+
+            //act
+            var actual = controller.Delete(movieId);
+
+            //assert
+            var result = Assert.IsType<NotFoundObjectResult>(actual);
+
+        }
+
+        [Fact]
+        public void PutMehtod_ShouldReturnOkResultForValidId()
         {
             //arrange
             int movieId = 10003;
@@ -95,6 +146,23 @@ namespace MovieCruiser.Test
 
             //assert
             Assert.IsType<OkResult>(actual);
+
+        }
+
+        [Fact] //negative
+        public void PutMehtod_ShouldReturnNotFoundForInvalidId()
+        {
+            //arrange
+            int movieId = 10013;
+            var mockRepo = new Mock<IMovieService>();
+            mockRepo.Setup(x => x.UpdateMovieComments(movieId, "test")).Throws<System.ArgumentException>();
+            var controller = new MovieController(mockRepo.Object);
+
+            //act
+            var actual = controller.Put(movieId, "test");
+
+            //assert
+            var result = Assert.IsType<NotFoundObjectResult>(actual);
 
         }
 

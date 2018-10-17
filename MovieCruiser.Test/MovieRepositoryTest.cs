@@ -19,6 +19,9 @@ namespace MovieCruiser.Test
             _repository = new MovieRepository(_fixture.dbContext);
         }
 
+        /// <summary>
+        /// Positive test to verify get all movies 
+        /// </summary>
         [Fact]
         public void GetAllMovie_ShouldReturnListOfMovie()
         {
@@ -62,8 +65,23 @@ namespace MovieCruiser.Test
             Assert.Same(newMovie, actual);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Fact]
-        public void UpdateMovieComments_GetMethodShouldReturnUpdatedComments()
+        //negative test
+        public void AddMovie_ShouldThrow_forInValidMovieIdAlreadyExist()
+        {
+            //arrange
+            Movie newMovie = new Movie { Id = 10001, Name = "Spiderman", Comments = string.Empty, PosterPath = "spiderman.jpg", ReleaseDate = "13-10-2003", VoteCount = 82345, VoteAverage = 7.9 };
+            //act
+            Action act = () => _repository.AddMovie(newMovie);
+            //assert
+            Assert.Throws<ArgumentException>(act);
+        }
+
+        [Fact]
+        public void UpdateMovieComments_ValidShouldNotTthrowEx_GetMethodShouldReturnUpdatedComments()
         {
             //arrange
             var comment = "thrilling movie with superb climax";
@@ -75,6 +93,20 @@ namespace MovieCruiser.Test
             //assert
             Assert.Null(expEx);
             Assert.Equal(comment, verifyRecord.Comments);
+        }
+
+        [Fact]
+        //negative test
+        public void UpdateMovieComments_forInvalidId_shouldThrowException()
+        {
+            //arrange
+            var comment = "thrilling movie with superb climax";
+            var movieId = 10011;
+            //act
+            Action actual = () => _repository.UpdateMovieComments(movieId, comment);
+            //var expEx = Record.Exception(actual);
+            //assert
+            Assert.Throws<ArgumentException>(actual);
         }
 
         [Fact]
@@ -90,6 +122,20 @@ namespace MovieCruiser.Test
             //assert
             Assert.Null(actualEx);
             Assert.NotNull(verifyEx);
+
+        }
+
+        [Fact]
+        //negative
+        public void DeleteMovie_OnInvalidId_ShouldThrowExpception()
+        {
+            //arrange
+            var movieId = 10102;
+            //act
+            Action actual = () => _repository.DeleteMovie(movieId);
+
+            //assert
+            Assert.Throws<ArgumentException>(actual);
 
         }
     }
