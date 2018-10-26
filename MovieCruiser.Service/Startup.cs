@@ -57,6 +57,8 @@ namespace MovieCruiser.Service
             {
                 app.UseHsts();
             }
+            //Enabling Cors
+            app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

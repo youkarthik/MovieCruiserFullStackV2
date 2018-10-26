@@ -7,7 +7,6 @@ import { Movie } from '../movie';
   styleUrls: ['./thumbnail.component.css']
 })
 export class ThumbnailComponent implements OnInit {
-   @Input() movies: Array<Movie>;
   @Input() movie: Movie;
   
   constructor() { }
