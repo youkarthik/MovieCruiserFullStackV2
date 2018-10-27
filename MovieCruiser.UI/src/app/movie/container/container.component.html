@@ -1,5 +1,6 @@
  <div class="thumbnail-flex">
+   {{isWatchlist}}
   <app-thumbnail 
     *ngFor="let movie of movies"
-    [movie]="movie"></app-thumbnail>
+    [movie]="movie" [isWatchlist] = "isWatchlist"></app-thumbnail>
  </div>

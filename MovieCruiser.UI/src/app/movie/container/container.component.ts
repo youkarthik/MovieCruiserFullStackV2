@@ -10,9 +10,10 @@ import { Movie } from '../movie';
 export class ContainerComponent implements OnInit {
   @Input() movies: Array<Movie>;
   movieType: string;
+  isWatchlist: boolean;
   constructor(private movieService: MovieService, private route: ActivatedRoute) {
     this.movies = [];
-    this.route.data.subscribe(data => { this.movieType = data.movieType });
+    this.route.data.subscribe(data => { this.movieType = data.movieType ; this.isWatchlist = (this.movieType == "watchlist")});
 
   }
 

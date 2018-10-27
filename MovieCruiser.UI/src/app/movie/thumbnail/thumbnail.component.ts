@@ -8,7 +8,7 @@ import { Movie } from '../movie';
 })
 export class ThumbnailComponent implements OnInit {
   @Input() movie: Movie;
-  
+  @Input() isWatchlist: boolean;
   constructor() { }
 
   ngOnInit() {

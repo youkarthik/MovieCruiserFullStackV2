@@ -1,5 +1,5 @@
 <div>
-	<mat-card class="movie-thumbnail">  
+  <mat-card class="movie-thumbnail">  
 		<mat-card-header>
 			<mat-card-title class="tooltip">{{movie?.title }}<span class="tooltiptext" >{{movie?.title}}</span></mat-card-title>
       <mat-card-subtitle>{{movie?.release_date}}</mat-card-subtitle>
@@ -9,7 +9,9 @@
         {{movie?.overview}}
     </mat-card-content>  
     <mat-card-actions class="movie-actions" align="end" >
-      <button mat-raised-button color="primary">Add to Watchlist</button>
+      <button *ngIf="!isWatchlist" mat-raised-button color="primary" (click)="onAdd()">Add to Watchlist</button>
+      <button *ngIf="isWatchlist" mat-raised-button color="primary" (click)="onRemove()">Remove from Watchlist</button>
+      <button *ngIf="isWatchlist" mat-raised-button color="primary" (click)="onUpdate()">Update Comments</button>
     </mat-card-actions>  
   </mat-card>
  </div>
