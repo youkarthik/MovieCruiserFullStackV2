@@ -9,6 +9,7 @@ import { MovieRouterModule } from './movie-router/movie-router.module';
 import { MovieService } from './movie.service';
 import { ThumbnailComponent } from './thumbnail/thumbnail.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { SearchComponent } from './search/search.component';
 import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
@@ -24,9 +25,11 @@ import { CommentdialogComponent } from './commentdialog/commentdialog.component'
     HttpClientModule,
     MatButtonModule,
     MatInputModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule,
   ],
   declarations: [ContainerComponent, ThumbnailComponent, SearchComponent, CommentdialogComponent],
-  providers: [MovieService]
+  providers: [MovieService],
+  entryComponents:[CommentdialogComponent]
 })
 export class MovieModule { }

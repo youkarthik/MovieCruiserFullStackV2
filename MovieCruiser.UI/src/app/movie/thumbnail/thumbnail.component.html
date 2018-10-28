@@ -6,7 +6,8 @@
     </mat-card-header>
     <img class="movie-image" mat-card-image [src]="movie?.poster_path" [alt]="movie?.title"/>
     <mat-card-content class="movie-overview">
-        {{movie?.overview}}
+        <span *ngIf="!isWatchlist">{{movie?.overview}}</span>
+        <span *ngIf="isWatchlist">{{movie?.comments}}</span>
     </mat-card-content>  
     <mat-card-actions class="movie-actions" align="end" >
       <button *ngIf="!isWatchlist" mat-raised-button color="primary" (click)="onAdd()">Add to Watchlist</button>

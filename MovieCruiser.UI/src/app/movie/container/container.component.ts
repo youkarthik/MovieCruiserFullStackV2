@@ -18,15 +18,25 @@ export class ContainerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.load();
+  }
+
+  load() {
     if (this.movieType) {
       console.log(this.movieType);
       if (this.movieType == "watchlist")
       {
-        this.movieService.getWatchListMovies().subscribe((movies) => { this.movies.push(...movies); console.log(this.movies); });
+        this.movieService.getWatchListMovies().subscribe((movies) => { this.movies = []; this.movies.push(...movies); console.log(this.movies); });
       }
       else
       this.movieService.getMovies(this.movieType).subscribe((movies) => { this.movies.push(...movies); console.log(this.movies); });
     }
+  }
+
+  reload (arg: any)
+  {
+    console.log('reload called');
+    this.load();
   }
 
 }

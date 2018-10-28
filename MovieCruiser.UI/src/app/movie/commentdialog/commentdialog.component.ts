@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 
 @Component({
   selector: 'app-commentdialog',
@@ -11,7 +11,7 @@ export class CommentdialogComponent implements OnInit {
 
   moviecomments: string;
   constructor(public dialogRef: MatDialogRef<CommentdialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
-    
+    this.moviecomments = data.obj.comments;
   }
   ngOnInit() {
   }

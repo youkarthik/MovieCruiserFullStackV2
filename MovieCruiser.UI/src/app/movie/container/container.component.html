@@ -2,5 +2,5 @@
    {{isWatchlist}}
   <app-thumbnail 
     *ngFor="let movie of movies"
-    [movie]="movie" [isWatchlist] = "isWatchlist"></app-thumbnail>
+    [movie]="movie" [isWatchlist] = "isWatchlist" (refreshMovieList)="reload($event)"></app-thumbnail>
  </div>
