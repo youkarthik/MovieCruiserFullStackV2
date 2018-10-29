@@ -1,6 +1,3 @@
- <div class="thumbnail-flex">
-   {{isWatchlist}}
-  <app-thumbnail 
-    *ngFor="let movie of movies"
-    [movie]="movie" [isWatchlist] = "isWatchlist" (refreshMovieList)="reload($event)"></app-thumbnail>
- </div>
+<div class="thumbnail-flex">
+  <app-thumbnail *ngFor="let movie of movies" [movie]="movie" [isWatchlist]="isWatchlist" (refreshMovieList)="reload($event)"></app-thumbnail>
+</div>

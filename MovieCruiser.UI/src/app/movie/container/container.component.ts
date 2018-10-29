@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MovieService } from '../movie.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+
 import { Movie } from '../movie';
 @Component({
   selector: 'app-container',
@@ -11,9 +13,9 @@ export class ContainerComponent implements OnInit {
   @Input() movies: Array<Movie>;
   movieType: string;
   isWatchlist: boolean;
-  constructor(private movieService: MovieService, private route: ActivatedRoute) {
+  constructor(private movieService: MovieService, private route: ActivatedRoute, private snackBar: MatSnackBar) {
     this.movies = [];
-    this.route.data.subscribe(data => { this.movieType = data.movieType ; this.isWatchlist = (this.movieType == "watchlist")});
+    this.route.data.subscribe(data => { this.movieType = data.movieType; this.isWatchlist = (this.movieType == "watchlist") });
 
   }
 
@@ -23,19 +25,20 @@ export class ContainerComponent implements OnInit {
 
   load() {
     if (this.movieType) {
-      console.log(this.movieType);
-      if (this.movieType == "watchlist")
-      {
-        this.movieService.getWatchListMovies().subscribe((movies) => { this.movies = []; this.movies.push(...movies); console.log(this.movies); });
+      if (this.movieType == "watchlist") {
+        this.movieService.getWatchListMovies().subscribe((movies) => { this.movies = []; this.movies.push(...movies); },
+          error => { this.snackBar.open(error, '', { duration: 5000 }); }
+        );
       }
       else
-      this.movieService.getMovies(this.movieType).subscribe((movies) => { this.movies.push(...movies); console.log(this.movies); });
+        this.movieService.getMovies(this.movieType).subscribe((movies) => { this.movies = []; this.movies.push(...movies); },
+          error => { this.snackBar.open(error, '', { duration: 5000 }); }
+
+        );
     }
   }
 
-  reload (arg: any)
-  {
-    console.log('reload called');
+  reload(arg: any) {
     this.load();
   }
 

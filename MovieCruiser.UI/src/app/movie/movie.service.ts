@@ -17,53 +17,46 @@ export class MovieService {
 
   getMovies(type: string, pageNumer: number = 1): Observable<Array<Movie>> {
     if (type) {
-      console.log('getmovies called')
       const endpoint = `${this.tmdbEndpoint}movie/${type}?api_key=${this.apiKey}&page=${pageNumer}`;
-      return this.http.get(endpoint).pipe(retry(3), map(this.pickMovieResults), map(this.transformPosterPath.bind(this)));
+      return this.http.get(endpoint).pipe(retry(3), catchError(this.handleError), map(this.pickMovieResults), map(this.transformPosterPath.bind(this)));
     }
 
   }
-  getWatchListMovies() : Observable<Array<Movie>>
-  {
-    console.log('getwatchlistcalled');
-    return this.http.get<Array<Movie>>(this.fullWatchlistEndpoint).pipe(retry(3));
+  getWatchListMovies(): Observable<Array<Movie>> {
+    return this.http.get<Array<Movie>>(this.fullWatchlistEndpoint).pipe(retry(3), catchError(this.handleError));
   }
   searchMovies(searchString: string): Observable<Array<Movie>> {
     const endpoint = `${this.searchEndpoint}/movie?api_key=${this.apiKey}&&language=en-US&page=1&include_adult=false&query=${searchString}`;
     if (searchString.length > 0) {
-      return this.http.get(endpoint).pipe(
+      return this.http.get<Array<Movie>>(endpoint).pipe(
         retry(3),
+        catchError(this.handleError),
         map(this.pickMovieResults),
-        map(this.transformPosterPath.bind(this))
+        map(this.transformPosterPath.bind(this)),
       );
     }
   }
 
-  addWatchlistMovie(movie: Movie) : Observable<Movie>
-  {
-    console.log(movie)
+  addWatchlistMovie(movie: Movie): Observable<Movie> {
     return this.http.post<Movie>(this.fullWatchlistEndpoint, movie).pipe(
       catchError(this.handleError)
     );
   }
-  deleteWatchlistMovie(id: number) : Observable<{}> 
-  {
+  deleteWatchlistMovie(id: number): Observable<{}> {
     const endpoint = `${this.fullWatchlistEndpoint}/${id}`;
     return this.http.delete(endpoint)
-    .pipe(
-      catchError(this.handleError)
-    );
+      .pipe(
+        catchError(this.handleError)
+      );
 
   }
-  updateWatchlistMovieComments(id:number, comments: string) : Observable<{}> 
-  {
+  updateWatchlistMovieComments(id: number, comments: string): Observable<{}> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json',
+        'Content-Type': 'application/json',
       })
     };
     const endpoint = `${this.fullWatchlistEndpoint}/${id}`;
-    console.log(comments);
     return this.http.put(endpoint, JSON.stringify(comments), httpOptions).pipe(
       catchError(this.handleError)
     );

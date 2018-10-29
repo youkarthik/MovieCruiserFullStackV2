@@ -32,7 +32,8 @@ export class ThumbnailComponent implements OnInit {
         if (result) {
           this.movie.comments = result;
           this.movieService.addWatchlistMovie(this.movie).subscribe(
-            () =>{ this.snackBar.open('Movie added to Watchlist', '', { duration: 5000 })}
+            () =>{ this.snackBar.open('Movie added to Watchlist', '', { duration: 5000 })},
+            error => {  this.snackBar.open(error, '', { duration: 5000 }); }
           );
         }
       });
@@ -49,8 +50,9 @@ export class ThumbnailComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           this.movieService.updateWatchlistMovieComments(this.movie.id, result).subscribe(
-            () =>{ this.refreshMovieList.emit(null); this.snackBar.open('Watchlist movie comments updated', '', { duration: 5000 })}
-          );
+            () =>{ this.refreshMovieList.emit(null); this.snackBar.open('Watchlist movie comments updated', '', { duration: 5000 })},
+            error => {  this.snackBar.open(error, '', { duration: 5000 }); }
+          )
         }
       });
   }
@@ -58,7 +60,8 @@ export class ThumbnailComponent implements OnInit {
   onRemove()
   {
     this.movieService.deleteWatchlistMovie(this.movie.id).subscribe(
-      () =>{ this.refreshMovieList.emit(null); this.snackBar.open('Movie deleted from Watchlist', '', { duration: 5000 })}
+      () =>{ this.refreshMovieList.emit(null); this.snackBar.open('Movie deleted from Watchlist', '', { duration: 5000 })},
+      error => {  this.snackBar.open(error, '', { duration: 5000 }); }
     );
   }
 
