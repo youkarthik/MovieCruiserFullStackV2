@@ -22,9 +22,15 @@ export class ThumbnailComponent implements OnInit {
 
   onAdd()
   {
+      this.movieService.getWatchlistMovie(this.movie.id).subscribe((movie) => this.snackBar.open("Movie already in watchlist", '', { duration: 5000 }),
+      () => this.add());
+    
+  }
+
+  add()
+  {
     let dialogRef = this.matDlg.open(CommentdialogComponent,
       {
-        //width:"400px",
         data: {obj: this.movie}
       });
 
@@ -36,7 +42,7 @@ export class ThumbnailComponent implements OnInit {
             error => {  this.snackBar.open(error, '', { duration: 5000 }); }
           );
         }
-      });
+      }); 
   }
 
   onUpdate()

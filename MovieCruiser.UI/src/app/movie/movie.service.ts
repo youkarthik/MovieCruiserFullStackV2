@@ -42,6 +42,11 @@ export class MovieService {
       catchError(this.handleError)
     );
   }
+
+  getWatchlistMovie(id: number): Observable<Movie> {
+    const endpoint = `${this.fullWatchlistEndpoint}/${id}`;
+    return this.http.get<Movie>(endpoint);
+  }
   deleteWatchlistMovie(id: number): Observable<{}> {
     const endpoint = `${this.fullWatchlistEndpoint}/${id}`;
     return this.http.delete(endpoint)
