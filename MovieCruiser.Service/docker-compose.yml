@@ -1,7 +1,7 @@
 version: '3'
 services:
     backend:
-        image: "moviecruiser.service"
+        image: "moviecruiser"
         ports:
             - "8089:80"
         links:
