@@ -17,8 +17,16 @@ namespace MovieCruiser.AuthService.DataAccess
         }
         public User AddUser(User user)
         {
-            _context.Users.Add(user);
-            _context.SaveChanges();
+            var userExists = _context.Users.Any(x => x.UserId == user.UserId);
+            if (!userExists)
+            {
+                _context.Users.Add(user);
+                _context.SaveChanges();
+            }
+            else
+            {
+                throw new ArgumentException("User with specified id already exists");
+            }
             return user;
         }
 

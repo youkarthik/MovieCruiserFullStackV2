@@ -30,7 +30,7 @@ namespace MovieCruiser.AuthService.Services
 
         public User RegisterUser(User user)
         {
-            throw new NotImplementedException();
+            return _repo.AddUser(user);
         }
     }
 }
