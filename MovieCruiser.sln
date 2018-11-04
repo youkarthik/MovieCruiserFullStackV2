@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieCruiser.Service", "MovieCruiser.Service\MovieCruiser.Service.csproj", "{F033BBA0-E3B4-4906-AB9C-F4B6C157EC61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieCruiser.Service", "MovieCruiser.Service\MovieCruiser.Service.csproj", "{F033BBA0-E3B4-4906-AB9C-F4B6C157EC61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieCruiser.Test", "MovieCruiser.Test\MovieCruiser.Test.csproj", "{E79AEA59-E5FD-4C07-89A2-4CCD4A6A88F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieCruiser.Test", "MovieCruiser.Test\MovieCruiser.Test.csproj", "{E79AEA59-E5FD-4C07-89A2-4CCD4A6A88F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieCruiser.AuthService", "MovieCruiser.AuthService\MovieCruiser.AuthService.csproj", "{7211C0EF-3E8A-4EB9-9908-A2A814E9F581}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{E79AEA59-E5FD-4C07-89A2-4CCD4A6A88F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E79AEA59-E5FD-4C07-89A2-4CCD4A6A88F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E79AEA59-E5FD-4C07-89A2-4CCD4A6A88F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7211C0EF-3E8A-4EB9-9908-A2A814E9F581}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7211C0EF-3E8A-4EB9-9908-A2A814E9F581}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7211C0EF-3E8A-4EB9-9908-A2A814E9F581}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7211C0EF-3E8A-4EB9-9908-A2A814E9F581}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

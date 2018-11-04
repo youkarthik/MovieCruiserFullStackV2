@@ -4,24 +4,24 @@
     "windowsAuthentication": false, 
     "anonymousAuthentication": true, 
     "iisExpress": {
-      "applicationUrl": "http://localhost:40524",
-      "sslPort": 44304
+      "applicationUrl": "http://localhost:49913",
+      "sslPort": 0
     }
   },
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/movie",
+      "launchUrl": "api/auth",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "MovieCruiser.Service": {
+    "MovieCruiser.AuthService": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/movie",
-      "applicationUrl": "https://localhost:8088;http://localhost:8089",
+      "launchUrl": "api/auth",
+      "applicationUrl": "http://localhost:8081",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
