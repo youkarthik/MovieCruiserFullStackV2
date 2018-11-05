@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import { MatButtonModule } from '@angular/material/button';
 import { ContainerComponent } from './container/container.component';
@@ -14,6 +14,7 @@ import { SearchComponent } from './search/search.component';
 import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { CommentdialogComponent } from './commentdialog/commentdialog.component';
+import { TokenInterceptor } from './token-interceptor.service';
 
 @NgModule({
   imports: [
@@ -29,7 +30,11 @@ import { CommentdialogComponent } from './commentdialog/commentdialog.component'
     MatSnackBarModule,
   ],
   declarations: [ContainerComponent, ThumbnailComponent, SearchComponent, CommentdialogComponent],
-  providers: [MovieService],
+  providers: [MovieService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }],
   entryComponents:[CommentdialogComponent]
 })
 export class MovieModule { }

@@ -8,10 +8,11 @@ using MovieCruiser.Service.DataAccess;
 using MovieCruiser.Service.DB;
 using MovieCruiser.Service.Services;
 using Swashbuckle.AspNetCore.Swagger;
+using System;
 
 namespace MovieCruiser.Service
 {
-    public class Startup
+    public partial class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -23,9 +24,16 @@ namespace MovieCruiser.Service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+           
 
-            services.AddDbContext<MoviesDbContext>(x => x.UseSqlServer(Configuration.GetConnectionString("MoviesDbContext")));
+            // JWT
+            ConfigureJwtAuthService(Configuration, services);
+
+            string connectionString = Environment.GetEnvironmentVariable("SQL_MOVIE");
+
+            if (string.IsNullOrEmpty(connectionString))
+                connectionString = Configuration.GetConnectionString("MoviesDbContext");
+            services.AddDbContext<MoviesDbContext>(x => x.UseSqlServer(connectionString));
 
             //injecting dependencies
             services.AddScoped<IMoviesDbContext, MoviesDbContext>();
@@ -37,6 +45,8 @@ namespace MovieCruiser.Service
             {
                 c.SwaggerDoc("v1", new Info { Title = "MovieCruiser API", Version = "v1", Description = "MovieCruiser API Description" });
             });
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +69,7 @@ namespace MovieCruiser.Service
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Movie Cruiser API");
             });
 
+            app.UseAuthentication();
             //app.UseHttpsRedirection();
             app.UseMvc();
         }
