@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { User } from './user';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import * as jwt_decode from 'jwt-decode';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 export const TOKEN_NAME:string = 'jwt_token';
 
 @Injectable({
@@ -17,11 +19,13 @@ export class AuthenticationService {
   }
 
   registerUser(user: User) {
-    return this.httpClient.post(this.authSvcEndpoint+"/registeruser", user);
+    return this.httpClient.post(this.authSvcEndpoint+"/registeruser", user).pipe(
+      catchError(this.handleError));
   }
 
   loginUser(user: User) {
-    return this.httpClient.post<string>(this.authSvcEndpoint+"/login", user);
+    return this.httpClient.post<string>(this.authSvcEndpoint+"/login", user).pipe(
+      catchError(this.handleError));
   }
 
   setToken(token: string) {
@@ -51,4 +55,21 @@ export class AuthenticationService {
     date.setUTCSeconds(decoded.exp);
     return date;
   }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error.message);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+    }
+    // return an observable with a user-facing error message
+    return throwError(
+      'Something bad happened; please try again later.');
+  };
 }
+

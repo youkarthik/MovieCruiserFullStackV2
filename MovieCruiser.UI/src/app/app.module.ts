@@ -9,6 +9,9 @@ import { SearchboxComponent } from './searchbox/searchbox.component';
 import { AppComponent } from './app.component';
 import { AuthGuardService } from './authguard.service';
 import { AuthenticationModule } from './authentication/authentication.module';
+import { HeaderComponent } from './header.component';
+import { HomeLayoutComponent } from './_layouts/home-layout.component';
+import { LoginLayoutComponent } from './_layouts/login-layout.component';
 
 const appRoutes: Routes = [
   {
@@ -21,7 +24,7 @@ const appRoutes: Routes = [
 @NgModule({
   imports: [BrowserModule, FormsModule, MatToolbarModule, MovieModule, AuthenticationModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule, RouterModule.forRoot(appRoutes)],
   providers: [AuthGuardService],
-  declarations: [AppComponent, SearchboxComponent],
+  declarations: [AppComponent, SearchboxComponent, HeaderComponent, HomeLayoutComponent, LoginLayoutComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
