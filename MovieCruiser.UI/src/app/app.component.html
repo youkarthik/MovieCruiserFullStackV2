@@ -4,5 +4,7 @@
       <button mat-button [routerLink]="['/movies/toprated']">Top Rated Movies</button>
       <button mat-button [routerLink]="['/movies/watchlist']">Watchlist</button>
       <app-search-box></app-search-box>
+      <span class="fill-space"></span>
+      <button mat-button (click)="logout()">Logout</button>
   </mat-toolbar>
   <router-outlet></router-outlet>

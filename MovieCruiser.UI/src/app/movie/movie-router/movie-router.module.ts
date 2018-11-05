@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ContainerComponent } from '../container/container.component'
 import { SearchComponent } from '../search/search.component'
+import { AuthGuardService } from 'src/app/authguard.service';
 
 const movieRoutes: Routes = [{
   path: 'movies',
@@ -10,13 +11,14 @@ const movieRoutes: Routes = [{
     {
       path: '',
       redirectTo: '/movies/popular',
-      pathMatch: 'full'
+      pathMatch: 'full',
+      canActivate: [AuthGuardService]
     },
     {
       path: 'popular',
       component: ContainerComponent,
       data: {
-        movieType: 'popular'
+        movieType: 'popular',
       }
     },
     {
@@ -24,18 +26,21 @@ const movieRoutes: Routes = [{
       component: ContainerComponent,
       data: {
         movieType: 'top_rated'
-      }
+      },
+      canActivate: [AuthGuardService]
     },
     {
       path: 'watchlist',
       component: ContainerComponent,
       data: {
         movieType: 'watchlist'
-      }
+      },
+      canActivate: [AuthGuardService]
     },
     {
       path: 'search',
-      component: SearchComponent
+      component: SearchComponent,
+      canActivate: [AuthGuardService]
     }
 
 

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
+import { AuthenticationService } from './authentication/authentication.service';
 
 
 
@@ -9,8 +10,14 @@ import {Router} from "@angular/router";
   styleUrls: [ './app.component.css' ]
 })
 export class AppComponent  {
-  constructor(private router: Router) { }
+  constructor(private router: Router, private auth: AuthenticationService) { }
   onEnter(searchKey) {
     this.router.navigate(['/search', searchKey]);
+    
+  }
+
+  logout() {
+    this.auth.removeToken();
+    this.router.navigate (['/login']);
   }
 }
