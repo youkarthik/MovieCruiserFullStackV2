@@ -1,11 +1,20 @@
 version: '3'
 services:
+    authorization:
+        image: "authorization"
+        ports:
+            - "8081:80"
+        links:
+            - db
+        environment:
+            SQL_AUTH: "Data source=db;initial catalog=UserDb;User id=sa;Password=P@ssw0rd"
     backend:
         image: "moviecruiser"
         ports:
             - "8089:80"
         links:
             - db
+            - authorization
         environment:
             SQL_MOVIE: "Data source=db;initial catalog=MoviesDb;User id=sa;Password=P@ssw0rd"
     db:
