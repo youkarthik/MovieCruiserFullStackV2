@@ -61,7 +61,7 @@ namespace MovieCruiser.Test
         public void AddMovie_ShouldReturnMovie_forValidMovieId()
         {
             //arrange
-            Movie newMovie = new Movie { Id=10004, Name="Spiderman", Comments = string.Empty, PosterPath = "spiderman.jpg", ReleaseDate = "13-10-2003", VoteCount = 82345, VoteAverage = 7.9 };
+            Movie newMovie = new Movie { Id=10004, Name="Spiderman", Comments = string.Empty, PosterPath = "spiderman.jpg", ReleaseDate = "13-10-2003", VoteCount = 82345, VoteAverage = 7.9, UserId = "user1" };
             //act
             var actual = _repository.AddMovie(newMovie);
             //assert
