@@ -11,10 +11,10 @@ namespace MovieCruiser.Service.DataAccess
     /// </summary>
     public interface IMovieRepository
     {
-        List<Movie> GetAllMovies();
-        Movie GetMovieById(int id);
+        List<Movie> GetMovies(string userId);
+        Movie GetMovieById(int id, string userId);
         Movie AddMovie(Movie movie);
-        void UpdateMovieComments(int id, string comments);
-        void DeleteMovie(int id);
+        void UpdateMovieComments(int id, string comments, string userId);
+        void DeleteMovie(int id, string userId);
     }
 }

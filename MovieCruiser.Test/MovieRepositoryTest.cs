@@ -25,7 +25,9 @@ namespace MovieCruiser.Test
         [Fact]
         public void GetAllMovie_ShouldReturnListOfMovie()
         {
-            var actual = _repository.GetAllMovies();
+            //var arrange
+            var userId = "user1";
+            var actual = _repository.GetMovies(userId);
             Assert.IsAssignableFrom<IEnumerable<Movie>>(actual);
             Assert.True(actual.Count > 0);
         }
@@ -35,8 +37,9 @@ namespace MovieCruiser.Test
         public void GetMovieById_ShouldReturnMovie_ForValidMovieId()
         {
             //arrange
+            var userId = "user1";
             var testMovieId = 10001;
-            var actual = _repository.GetMovieById(testMovieId);
+            var actual = _repository.GetMovieById(testMovieId, userId);
             Assert.IsAssignableFrom<Movie>(actual);
             Assert.True(actual.Id == testMovieId);
         }
@@ -46,9 +49,10 @@ namespace MovieCruiser.Test
         public void GetMovieById_ShouldReturnMovie_ForInValidMovieId()
         {
             //arrange
+            var userId = "user1";
             var testMovieId = 20001;
             //act
-            Action act = () => _repository.GetMovieById(testMovieId);
+            Action act = () => _repository.GetMovieById(testMovieId, userId);
             //assert
             Assert.Throws<ArgumentException>(act);
         }
@@ -73,7 +77,7 @@ namespace MovieCruiser.Test
         public void AddMovie_ShouldThrow_forInValidMovieIdAlreadyExist()
         {
             //arrange
-            Movie newMovie = new Movie { Id = 10001, Name = "Spiderman", Comments = string.Empty, PosterPath = "spiderman.jpg", ReleaseDate = "13-10-2003", VoteCount = 82345, VoteAverage = 7.9 };
+            Movie newMovie = new Movie { Id = 10001, Name = "Spiderman", Comments = string.Empty, PosterPath = "spiderman.jpg", ReleaseDate = "13-10-2003", VoteCount = 82345, VoteAverage = 7.9, UserId = "user1" };
             //act
             Action act = () => _repository.AddMovie(newMovie);
             //assert
@@ -86,10 +90,11 @@ namespace MovieCruiser.Test
             //arrange
             var comment = "thrilling movie with superb climax";
             var movieId = 10001;
+            var userId = "user1";
             //act
-            Action actual = () => _repository.UpdateMovieComments(movieId, comment);
+            Action actual = () => _repository.UpdateMovieComments(movieId, comment, userId);
             var expEx = Record.Exception(actual);
-            var verifyRecord = _repository.GetMovieById(movieId);
+            var verifyRecord = _repository.GetMovieById(movieId, userId);
             //assert
             Assert.Null(expEx);
             Assert.Equal(comment, verifyRecord.Comments);
@@ -102,8 +107,9 @@ namespace MovieCruiser.Test
             //arrange
             var comment = "thrilling movie with superb climax";
             var movieId = 10011;
+            var userId = "user1";
             //act
-            Action actual = () => _repository.UpdateMovieComments(movieId, comment);
+            Action actual = () => _repository.UpdateMovieComments(movieId, comment, userId);
             //var expEx = Record.Exception(actual);
             //assert
             Assert.Throws<ArgumentException>(actual);
@@ -114,10 +120,11 @@ namespace MovieCruiser.Test
         {
             //arrange
             var movieId = 10002;
+            var userId = "user1";
             //act
-            Action actual = () => _repository.DeleteMovie(movieId);
+            Action actual = () => _repository.DeleteMovie(movieId, userId);
             var actualEx = Record.Exception(actual);
-            Action verify = () => _repository.GetMovieById(movieId);
+            Action verify = () => _repository.GetMovieById(movieId,userId);
             var verifyEx = Record.Exception(verify);
             //assert
             Assert.Null(actualEx);
@@ -131,8 +138,9 @@ namespace MovieCruiser.Test
         {
             //arrange
             var movieId = 10102;
+            var userId = "user1";
             //act
-            Action actual = () => _repository.DeleteMovie(movieId);
+            Action actual = () => _repository.DeleteMovie(movieId, userId);
 
             //assert
             Assert.Throws<ArgumentException>(actual);

@@ -24,10 +24,9 @@ namespace MovieCruiser.Service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-           
 
             // JWT
-            ConfigureJwtAuthService(Configuration, services);
+           ConfigureJwtAuthService(Configuration, services);
 
             string connectionString = Environment.GetEnvironmentVariable("SQL_MOVIE");
 
@@ -36,6 +35,7 @@ namespace MovieCruiser.Service
             services.AddDbContext<MoviesDbContext>(x => x.UseSqlServer(connectionString));
 
             //injecting dependencies
+            services.AddHttpContextAccessor(); //injecting IhttpContextAccesssor
             services.AddScoped<IMoviesDbContext, MoviesDbContext>();
             services.AddScoped<IMovieRepository, MovieRepository>();
             services.AddScoped<IMovieService, MovieService>();
@@ -68,7 +68,7 @@ namespace MovieCruiser.Service
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Movie Cruiser API");
             });
-
+            
             app.UseAuthentication();
             //app.UseHttpsRedirection();
             app.UseMvc();

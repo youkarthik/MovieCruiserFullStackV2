@@ -18,6 +18,12 @@ namespace MovieCruiser.Service.DB
         {
             Database.EnsureCreated();
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Movie>()
+                .HasKey(c => new { c.Id, c.UserId });
+        }
         public DbSet<Movie> Movies { get; set; }
     }
 }

@@ -24,9 +24,9 @@ namespace MovieCruiser.Service.DataAccess
         /// Repository method to return all movies
         /// </summary>
         /// <returns></returns>
-        public List<Movie> GetAllMovies()
+        public List<Movie> GetMovies(string userId)
         {
-            return _context.Movies.ToList();
+            return _context.Movies.Where( x=> x.UserId == userId).ToList();
         }
 
         /// <summary>
@@ -34,9 +34,9 @@ namespace MovieCruiser.Service.DataAccess
         /// </summary>
         /// <param name="id">key identifier</param>
         /// <returns>movie object</returns>
-        public Movie GetMovieById(int id)
+        public Movie GetMovieById(int id, string userId)
         {
-            var movie = _context.Movies.Find(id);
+            var movie = _context.Movies.Where(x => x.Id == id && x.UserId == userId).FirstOrDefault();
             if (movie != null)
             {
                 return movie;
@@ -54,7 +54,7 @@ namespace MovieCruiser.Service.DataAccess
         /// <returns></returns>
         public Movie AddMovie(Movie movie)
         {
-            var movieExists = _context.Movies.Any(e => e.Id == movie.Id);
+            var movieExists = _context.Movies.Any(e => e.Id == movie.Id && e.UserId == movie.UserId);
             if (!movieExists)
             {
                 _context.Movies.Add(movie);
@@ -72,9 +72,9 @@ namespace MovieCruiser.Service.DataAccess
         /// </summary>
         /// <param name="id">key identifier</param>
         /// <param name="comments">comments string</param>
-        public void UpdateMovieComments(int id, string comments)
+        public void UpdateMovieComments(int id, string comments, string userId)
         {
-            var movie = _context.Movies.Find(id);
+            var movie = _context.Movies.Where(x => x.Id == id && x.UserId == userId).FirstOrDefault();
 
             if (movie != null)
             {
@@ -91,9 +91,9 @@ namespace MovieCruiser.Service.DataAccess
         /// Method toe delete movie by its id
         /// </summary>
         /// <param name="id">key identifier</param>
-        public void DeleteMovie(int id)
+        public void DeleteMovie(int id, string userId)
         {
-            var movie = _context.Movies.Find(id);
+            var movie = _context.Movies.Where(x => x.Id == id && x.UserId == userId).FirstOrDefault();
 
             if (movie != null)
             {

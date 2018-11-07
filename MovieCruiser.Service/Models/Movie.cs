@@ -28,6 +28,9 @@ namespace MovieCruiser.Service.Models
         public double VoteAverage { get; set; }
         [JsonProperty(PropertyName = "vote_count")]
         public int VoteCount { get; set; }
+        [JsonProperty(PropertyName = "userid")]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public string UserId { get; set; }
 
 
     }

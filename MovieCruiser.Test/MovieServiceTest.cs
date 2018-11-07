@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.AspNetCore.Http;
 using Moq;
 using MovieCruiser.Service.DataAccess;
 using MovieCruiser.Service.Models;
@@ -14,11 +15,13 @@ namespace MovieCruiser.Test
     {
         [Fact]
         public void GetAllMovies_ShouldReturnListofMovie()
-        {   
+        {
             //arrange
+            var userId = "user1";
             var mockRepo = new Mock<IMovieRepository>();
-            mockRepo.Setup(x => x.GetAllMovies()).Returns(this.GetMovies());
-            var service = new MovieService(mockRepo.Object);
+            Mock<IHttpContextAccessor> mockContext = GetMockContext();
+            mockRepo.Setup(x => x.GetMovies(userId)).Returns(this.GetMovies());
+            var service = new MovieService(mockRepo.Object, mockContext.Object);
 
             //act
             var actual = service.GetAllMovies();
@@ -29,14 +32,24 @@ namespace MovieCruiser.Test
 
         }
 
+        private Mock<IHttpContextAccessor> GetMockContext()
+        {
+            var mockContext = new Mock<IHttpContextAccessor>();
+            var defContext = new DefaultHttpContext();
+            defContext.Request.Headers["userId"] = "user1";
+            mockContext.Setup(x => x.HttpContext).Returns(defContext);
+            return mockContext;
+        }
+
         [Fact]
         public void GetMovieById_ShouldReturnAMovieObject()
         {
             //arrange
             var testMovieId = 10001;
             var mockRepo = new Mock<IMovieRepository>();
-            mockRepo.Setup(x => x.GetMovieById(testMovieId)).Returns(this.GetMovies().FirstOrDefault(x => x.Id == testMovieId));
-            var service = new MovieService(mockRepo.Object);
+            Mock<IHttpContextAccessor> mockContext = GetMockContext();
+            mockRepo.Setup(x => x.GetMovieById(testMovieId, "user1")).Returns(this.GetMovies().FirstOrDefault(x => x.Id == testMovieId));
+            var service = new MovieService(mockRepo.Object, mockContext.Object);
 
             //act
             var actual = service.GetMovieById(testMovieId);
@@ -52,10 +65,11 @@ namespace MovieCruiser.Test
         public void AddMovie_ShouldReturnMovie_forValidMovieId()
         {
             //arrange
-            Movie newMovie = new Movie { Id = 10004, Name = "Spiderman", Comments = string.Empty, PosterPath = "spiderman.jpg", ReleaseDate = "13-10-2003", VoteCount = 82345, VoteAverage = 7.9 };
+            Movie newMovie = new Movie { Id = 10004, Name = "Spiderman", Comments = string.Empty, PosterPath = "spiderman.jpg", ReleaseDate = "13-10-2003", VoteCount = 82345, VoteAverage = 7.9, UserId = "user1" };
             var mockRepo = new Mock<IMovieRepository>();
+            Mock<IHttpContextAccessor> mockContext = GetMockContext();
             mockRepo.Setup(x => x.AddMovie(newMovie)).Returns(newMovie);
-            var service = new MovieService(mockRepo.Object);
+            var service = new MovieService(mockRepo.Object, mockContext.Object);
 
             //act
             var actual = service.AddMovie(newMovie);
@@ -72,8 +86,9 @@ namespace MovieCruiser.Test
             var comment = "thrilling movie with superb climax";
             var movieId = 10001;
             var mockRepo = new Mock<IMovieRepository>();
-            mockRepo.Setup(x => x.UpdateMovieComments(movieId, comment));
-            var service = new MovieService(mockRepo.Object);
+            mockRepo.Setup(x => x.UpdateMovieComments(movieId, comment, "user1"));
+            Mock<IHttpContextAccessor> mockContext = GetMockContext();
+            var service = new MovieService(mockRepo.Object, mockContext.Object);
             //act
             Action actual = () => service.UpdateMovieComments(movieId, comment);
             var expEx = Record.Exception(actual);
@@ -88,8 +103,9 @@ namespace MovieCruiser.Test
             //arrange
             var movieId = 10003;
             var mockRepo = new Mock<IMovieRepository>();
-            mockRepo.Setup(x => x.DeleteMovie(movieId));
-            var service = new MovieService(mockRepo.Object);
+            mockRepo.Setup(x => x.DeleteMovie(movieId, "user1"));
+            Mock<IHttpContextAccessor> mockContext = GetMockContext();
+            var service = new MovieService(mockRepo.Object, mockContext.Object);
 
             //act
             Action actual = () => service.DeleteMovie(movieId);

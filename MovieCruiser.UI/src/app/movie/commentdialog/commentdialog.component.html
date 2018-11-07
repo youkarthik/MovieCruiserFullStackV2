@@ -8,6 +8,6 @@
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button  (click)="onCancel()">Cancel</button>
-  <button mat-button [mat-dialog-close]="moviecomments">Save</button>
+  <button mat-raised-button  (click)="onCancel()" color="warn">Cancel</button>
+  <button mat-raised-button [mat-dialog-close]="moviecomments" color="primary">Save</button>
 </mat-dialog-actions>

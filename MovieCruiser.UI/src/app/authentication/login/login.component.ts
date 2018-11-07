@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
      
       if(data) {
         this.authService.setToken(data);
+        this.authService.setUserId(this.inputUser.userId);
         this.router.navigate(['/movies/popular']);
       }
       

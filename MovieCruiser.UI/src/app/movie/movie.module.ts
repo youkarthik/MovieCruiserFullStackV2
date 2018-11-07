@@ -15,6 +15,7 @@ import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { CommentdialogComponent } from './commentdialog/commentdialog.component';
 import { TokenInterceptor } from './token-interceptor.service';
+import { MovieHttpClient } from './moviehttpclient.service';
 
 @NgModule({
   imports: [
@@ -30,11 +31,13 @@ import { TokenInterceptor } from './token-interceptor.service';
     MatSnackBarModule,
   ],
   declarations: [ContainerComponent, ThumbnailComponent, SearchComponent, CommentdialogComponent],
-  providers: [MovieService, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptor,
-    multi: true
-  }],
+  providers: [MovieService, MovieHttpClient, 
+  //   {
+  //   provide: HTTP_INTERCEPTORS,
+  //   useClass: TokenInterceptor,
+  //   multi: true
+  // }
+],
   entryComponents:[CommentdialogComponent]
 })
 export class MovieModule { }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MovieCruiser.Service.DataAccess;
 using MovieCruiser.Service.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace MovieCruiser.Service.Services
 {
@@ -13,13 +14,16 @@ namespace MovieCruiser.Service.Services
     public class MovieService : IMovieService
     {
         private readonly IMovieRepository _repository;
+        private string _userId;
         /// <summary>
         /// Movie service constructor injecting repository object
         /// </summary>
         /// <param name="repository">Repository class instance</param>
-        public MovieService(IMovieRepository repository)
+        public MovieService(IMovieRepository repository, IHttpContextAccessor httpContextAccessor)
         {
             _repository = repository;
+            httpContextAccessor.HttpContext.Request.Headers.TryGetValue("userId", out var userId);
+            _userId = userId;
         }
 
         /// <summary>
@@ -29,6 +33,7 @@ namespace MovieCruiser.Service.Services
         /// <returns></returns>
         public Movie AddMovie(Movie movie)
         {
+            movie.UserId = _userId;
             return _repository.AddMovie(movie);
         }
 
@@ -38,16 +43,16 @@ namespace MovieCruiser.Service.Services
         /// <param name="id">Movie object key identifier</param>
         public void DeleteMovie(int id)
         {
-            _repository.DeleteMovie(id);
+            _repository.DeleteMovie(id, _userId);
         }
 
         /// <summary>
         /// Method to get all movies collection
         /// </summary>
-        /// <returns></returns>
+        /// <returns></returns> 
         public List<Movie> GetAllMovies()
         {
-            return _repository.GetAllMovies();
+            return _repository.GetMovies(_userId);
         }
 
         /// <summary>
@@ -57,7 +62,7 @@ namespace MovieCruiser.Service.Services
         /// <returns>Movie object</returns>
         public Movie GetMovieById(int id)
         {
-            return _repository.GetMovieById(id);
+            return _repository.GetMovieById(id, _userId);
         }
 
         /// <summary>
@@ -67,7 +72,7 @@ namespace MovieCruiser.Service.Services
         /// <param name="comments">comments string</param>
         public void UpdateMovieComments(int id, string comments)
         {
-            _repository.UpdateMovieComments(id, comments);
+            _repository.UpdateMovieComments(id, comments, _userId);
         }
     }
 }
