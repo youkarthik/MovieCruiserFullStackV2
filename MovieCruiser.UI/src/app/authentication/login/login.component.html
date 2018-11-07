@@ -43,16 +43,16 @@
       <form  novalidate (ngSubmit)="loginUser()">
         <mat-form-field>
           <mat-icon matPrefix>person</mat-icon>
-          <input autofocus type="text" matInput placeholder="Username" [(ngModel)]="inputUser.userId" name="userId" required>
+          <input autofocus type="text" matInput placeholder="Username" [(ngModel)]="inputUser.userId" name="userId" id="userId" required>
         </mat-form-field>
 
         <mat-form-field>
           <mat-icon matPrefix>lock</mat-icon>
-          <input type="password" autocomplete="false" matInput placeholder="Password" [(ngModel)]="inputUser.password" name="password" required>
+          <input type="password" autocomplete="false" matInput placeholder="Password" [(ngModel)]="inputUser.password" name="password" id="password" required>
         </mat-form-field>
 
-        <button type="submit" mat-raised-button color="primary">Login</button>
-        <button mat-raised-button [routerLink]="['/register']">Register</button>
+        <button type="submit" mat-raised-button color="primary" class="login-button">Login</button>
+        <button mat-raised-button class="register-button" [routerLink]="['/register']">Register</button>
         
       </form>
       <mat-card-actions></mat-card-actions>

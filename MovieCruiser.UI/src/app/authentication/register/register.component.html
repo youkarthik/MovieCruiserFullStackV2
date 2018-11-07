@@ -88,9 +88,9 @@
             minlength="5" maxlength="10" #userId="ngModel" />
         </mat-form-field>
         <mat-form-field>
-          <input type="password" autocomplete="false" matInput placeholder="Password" [(ngModel)]="newUser.password" name="password" required>
+          <input type="password" autocomplete="false" matInput placeholder="Password" [(ngModel)]="newUser.password" name="password" id="password" required>
         </mat-form-field>
-        <button type="submit" mat-raised-button color="primary">Submit</button>
+        <button type="submit" mat-raised-button color="primary" id="btnregsubmit">Submit</button>
 
       </form>
       <mat-card-actions></mat-card-actions>

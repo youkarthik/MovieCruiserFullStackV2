@@ -13,7 +13,6 @@ export class HeaderComponent  {
   isloggedIn: boolean;
   constructor(private router: Router, private auth: AuthenticationService) { 
       this.isloggedIn = !this.auth.isTokenExpired();
-      console.log(this.isloggedIn);
   }
   onEnter(searchKey) {
     this.router.navigate(['/search', searchKey]);
