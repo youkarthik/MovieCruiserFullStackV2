@@ -4,10 +4,10 @@
 <mat-dialog-content>
   <p>Comments</p>
   <mat-form-field style="width:100%">
-    <textarea matInput [(ngModel)]="moviecomments" ></textarea>
+    <textarea matInput [(ngModel)]="moviecomments" id="watchlistMovieComment" ></textarea>
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-raised-button  (click)="onCancel()" color="warn">Cancel</button>
-  <button mat-raised-button [mat-dialog-close]="moviecomments" color="primary">Save</button>
+  <button mat-raised-button [mat-dialog-close]="moviecomments" color="primary" class="clsSaveCommentsBtn" >Save</button>
 </mat-dialog-actions>

@@ -1,9 +1,9 @@
 <mat-toolbar color="primary" class="mat-elevation-z6 app-toolbar" *ngIf="isloggedIn">
     <span>Movie Cruiser</span>
-    <button mat-button [routerLink]="['/movies/popular']">Popular Movies</button>    
-    <button mat-button [routerLink]="['/movies/toprated']">Top Rated Movies</button>
-    <button mat-button [routerLink]="['/movies/watchlist']">Watchlist</button>
+    <button mat-button [routerLink]="['/movies/popular']" class="clsBtnPopular">Popular Movies</button>    
+    <button mat-button [routerLink]="['/movies/toprated']" class="clsBtnTopRated">Top Rated Movies</button>
+    <button mat-button [routerLink]="['/movies/watchlist']" class="clsBtnWatchlist">Watchlist</button>
     <app-search-box></app-search-box>
     <span class="fill-space"></span>
-    <button mat-button (click)="logout()">Logout</button>
+    <button mat-button (click)="logout()"  class="clsBtnLogout">Logout</button>
 </mat-toolbar>

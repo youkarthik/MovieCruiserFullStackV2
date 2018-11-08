@@ -10,9 +10,9 @@
         <span *ngIf="isWatchlist">{{movie?.comments}}</span>
     </mat-card-content>  
     <mat-card-actions class="movie-actions" align="end" >
-      <button *ngIf="!isWatchlist" mat-raised-button color="primary" (click)="onAdd()">Add to Watchlist</button>
-      <button *ngIf="isWatchlist" mat-raised-button color="primary" (click)="onRemove()">Remove from Watchlist</button>
-      <button *ngIf="isWatchlist" mat-raised-button color="primary" (click)="onUpdate()">Update Comments</button>
+      <button *ngIf="!isWatchlist" mat-raised-button color="primary" class="clsAddButton" (click)="onAdd()">Add to Watchlist</button>
+      <button *ngIf="isWatchlist" mat-raised-button color="primary" class="clsRemoveButton" (click)="onRemove()">Remove from Watchlist</button>
+      <button *ngIf="isWatchlist" mat-raised-button color="primary" class="clsUpdateButton" (click)="onUpdate()">Update Comments</button>
     </mat-card-actions>  
   </mat-card>
  </div>
