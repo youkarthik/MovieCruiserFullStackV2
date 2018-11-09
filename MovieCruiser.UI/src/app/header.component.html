@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" class="mat-elevation-z6 app-toolbar" *ngIf="isloggedIn">
+<!-- <mat-toolbar color="primary" class="mat-elevation-z6 app-toolbar" *ngIf="isloggedIn">
     <span>Movie Cruiser</span>
     <button mat-button [routerLink]="['/movies/popular']" class="clsBtnPopular">Popular Movies</button>    
     <button mat-button [routerLink]="['/movies/toprated']" class="clsBtnTopRated">Top Rated Movies</button>
@@ -6,4 +6,32 @@
     <app-search-box></app-search-box>
     <span class="fill-space"></span>
     <button mat-button (click)="logout()"  class="clsBtnLogout">Logout</button>
-</mat-toolbar>
+</mat-toolbar> -->
+<nav class="navbar navbar-expand-md navbar-dark fixed-top docs-navbar-header">
+    <a class="navbar-brand" href="#">Movie Cruiser</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <button mat-flat-button color="primary" [routerLink]="['/movies/popular']" class="clsBtnPopular">Popular
+                    Movies</button>
+            </li>
+            <li class="nav-item">
+                <button mat-flat-button color="primary" [routerLink]="['/movies/toprated']" class="clsBtnTopRated">Top
+                    Rated Movies</button>
+            </li>
+            <li class="nav-item">
+                <button mat-flat-button color="primary" [routerLink]="['/movies/watchlist']" class="clsBtnWatchlist">Watchlist</button>
+            </li>
+        </ul>
+        <app-search-box></app-search-box>
+        <ul class="navbar-nav navbar-right">
+            <li class="nav-item">
+                <button mat-flat-button (click)="logout()" class="clsBtnLogout">Logout</button>
+            </li>
+        </ul>
+    </div>
+</nav>

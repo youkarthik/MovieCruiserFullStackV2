@@ -3,3 +3,7 @@
     flex-wrap: wrap;
     padding: 20px;
 }
+
+body{
+    top: 20px;
+}
