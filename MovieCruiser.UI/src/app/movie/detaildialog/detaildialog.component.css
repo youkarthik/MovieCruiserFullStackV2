@@ -1,0 +1,17 @@
+
+
+.fullscreen-dialog {
+    max-width: 90%;
+    max-height: 90%;
+    
+}
+
+img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .full-width-field {
+    width: 100%;
+}

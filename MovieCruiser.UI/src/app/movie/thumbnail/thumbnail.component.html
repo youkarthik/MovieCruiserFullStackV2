@@ -1,7 +1,7 @@
 <div>
   <mat-card class="movie-thumbnail">  
 		<mat-card-header>
-			<mat-card-title class="tooltip">{{movie?.title }}<span class="tooltiptext" >{{movie?.title}}</span></mat-card-title>
+			<mat-card-title class="mat-card-title">{{movie?.title}}</mat-card-title>
       <mat-card-subtitle>{{movie?.release_date}}</mat-card-subtitle>
     </mat-card-header>
     <img class="movie-image" mat-card-image [src]="movie?.poster_path" [alt]="movie?.title"/>
@@ -10,8 +10,9 @@
         <span *ngIf="isWatchlist">{{movie?.comments}}</span>
     </mat-card-content>  
     <mat-card-actions class="movie-actions" align="end" >
-      <button *ngIf="!isWatchlist" mat-raised-button color="primary" class="clsAddButton" (click)="onAdd()">Add to Watchlist</button>
-      <button *ngIf="isWatchlist" mat-raised-button color="primary" class="clsRemoveButton" (click)="onRemove()">Remove from Watchlist</button>
+        <button *ngIf="!isWatchlist" mat-raised-button color="primary" class="clsAddButton" (click)="onView()">View</button>
+      <!-- <button *ngIf="!isWatchlist" mat-raised-button color="primary" class="clsAddButton" (click)="onAdd()">Add to Watchlist </button> -->
+      <button *ngIf="isWatchlist" mat-raised-button color="warn" class="clsRemoveButton" (click)="onRemove()">Remove from Watchlist</button>
       <button *ngIf="isWatchlist" mat-raised-button color="primary" class="clsUpdateButton" (click)="onUpdate()">Update Comments</button>
     </mat-card-actions>  
   </mat-card>

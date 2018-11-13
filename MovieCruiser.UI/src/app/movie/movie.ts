@@ -7,4 +7,5 @@ export interface Movie{
   comments: string;
   vote_average: string;
   vote_count: string;
+  isInWatchlist: boolean;
 }

@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>Movie Details: {{data.obj.title}}</h2>
+
+<mat-dialog-content style="width:80vw; height:80vw">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <img class="movie-image" mat-card-image [src]="movie?.poster_path" [alt]="movie?.title" />
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <mat-form-field class="full-width-field">
+            <input matInput placeholder="Movie Title" [value]="movie?.title" readonly>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field class="full-width-field">
+            <textarea matInput placeholder="Overview" [value]="movie?.overview" readonly></textarea>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field class="full-width-field">
+            <input matInput placeholder="Release Date" [value]="movie?.release_date" readonly>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field class="full-width-field">
+            <input matInput placeholder="Rating" value="{{movie?.vote_average}} ({{movie?.vote_count}})" readonly>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field class="full-width-field">
+            <textarea matInput placeholder="Comments (optional)" [(ngModel)]="movie.comments"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()" color="warn">Close</button>
+  <button  *ngIf="!movie.isInWatchlist" mat-raised-button color="primary" (click)="onAddWatchlist()" class="clsAddWatchlistsBtn">Add to Watchlist</button>
+  <button  *ngIf="movie.isInWatchlist" mat-raised-button color="warn" (click)="onRemoveWatchlist()" class="clsRemoveWatchlistBtn">Remove from Watchlist</button>
+</mat-dialog-actions>

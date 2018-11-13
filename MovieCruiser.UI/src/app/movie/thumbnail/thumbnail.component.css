@@ -2,7 +2,7 @@
   display: inline-block;
     margin: 20px;
     vertical-align: top;
-    width: 300px; 
+    width: 340px; 
 }
 
 
@@ -51,4 +51,9 @@
 
 .tooltip:hover .tooltiptext {
     visibility: visible;
+}
+
+.mat-card-title
+{
+    font-weight: bolder;
 }

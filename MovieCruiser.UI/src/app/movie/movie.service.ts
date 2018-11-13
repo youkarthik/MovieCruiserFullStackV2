@@ -4,15 +4,16 @@ import { Observable, throwError } from 'rxjs';
 import { map, retry, catchError } from 'rxjs/operators'
 import { Movie } from './Movie'
 import { MovieHttpClient } from './moviehttpclient.service';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable()
 export class MovieService {
-  apiKey: string = '65d23c85df26295f74201c1a729f31d3';
-  tmdbEndpoint: string = 'https://api.themoviedb.org/3/';
-  searchEndpoint: string = 'https://api.themoviedb.org/3/search';
-  imagePrefix: string = 'https://image.tmdb.org/t/p/w500';
-  watchlistApiServerPath: string = 'http://localhost:8089';
+  apiKey: string = environment.apiKey;// '65d23c85df26295f74201c1a729f31d3';
+  tmdbEndpoint: string = environment.tmdbEndpoint;//'https://api.themoviedb.org/3/';
+  searchEndpoint: string = `${this.tmdbEndpoint}search`;// 'https://api.themoviedb.org/3/search';
+  imagePrefix: string = environment.tmdbImagePrefix;//'https://image.tmdb.org/t/p/w500';
+  watchlistApiServerPath: string = environment.watchlistApiServerPath; // string = 'http://localhost:8089';
   fullWatchlistEndpoint = `${this.watchlistApiServerPath}/api/movie`;
   constructor(private http: HttpClient, private movieHttp: MovieHttpClient) { }
 

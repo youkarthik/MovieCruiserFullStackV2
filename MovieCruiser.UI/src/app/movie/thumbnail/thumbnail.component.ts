@@ -4,6 +4,7 @@ import { MovieService } from '../movie.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { CommentdialogComponent } from '../commentdialog/commentdialog.component';
+import { DetaildialogComponent } from '../detaildialog/detaildialog.component';
 
 @Component({
   selector: 'app-thumbnail',
@@ -13,8 +14,8 @@ import { CommentdialogComponent } from '../commentdialog/commentdialog.component
 export class ThumbnailComponent implements OnInit {
   @Input() movie: Movie;
   @Input() isWatchlist: boolean;
-  @Output()
-  refreshMovieList = new EventEmitter();
+  @Output() refreshMovieList = new EventEmitter();
+  
   constructor(private movieService: MovieService, private snackBar: MatSnackBar, private matDlg: MatDialog) { }
 
   ngOnInit() {
@@ -27,8 +28,18 @@ export class ThumbnailComponent implements OnInit {
     
   }
 
+  onView()
+  {
+    let dialogRef = this.matDlg.open(DetaildialogComponent,
+      {
+        data: {obj: this.movie}
+      });
+    
+  }
+
   add()
   {
+    
     let dialogRef = this.matDlg.open(CommentdialogComponent,
       {
         data: {obj: this.movie}
@@ -44,6 +55,8 @@ export class ThumbnailComponent implements OnInit {
         }
       }); 
   }
+
+ 
 
   onUpdate()
   {

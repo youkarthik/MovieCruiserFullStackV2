@@ -4,6 +4,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import * as jwt_decode from 'jwt-decode';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 export const TOKEN_NAME: string = 'jwt_token';
 
 @Injectable({
@@ -11,11 +12,11 @@ export const TOKEN_NAME: string = 'jwt_token';
 })
 export class AuthenticationService {
 
-  authSvcEndpoint: string;
+  authSvcEndpoint: string = environment.authSvcEndpoint;
   token: string;
   userId: string;
   constructor(private httpClient: HttpClient) {
-    this.authSvcEndpoint = 'http://localhost:8081/api/auth'
+    
   }
 
   setUserId(userId: string) {
