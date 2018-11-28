@@ -19,10 +19,12 @@ export class LoginComponent implements OnInit {
       this.inputUser = new User();
   }
 
+  //on init removing the token
   ngOnInit() {
     this.authService.removeToken();
   }
 
+  //login for button click event, setting token, userid and navigating to popuplat movies on succesful login
   loginUser() {
    this.authService.loginUser(this.inputUser).subscribe((data) => {
      

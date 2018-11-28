@@ -1,25 +1,40 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, async, TestBed } from "@angular/core/testing";
+import { Movie } from "../Movie";
+import { MatDialogModule, MatSnackBar, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { CommentdialogComponent } from "./commentdialog.component";
 
-import { CommentdialogComponent } from './commentdialog.component';
+describe ('commentdialogcomponent', () => {
+    let comp: CommentdialogComponent;
+    let fixture: ComponentFixture<CommentdialogComponent>;
 
-describe('CommentdialogComponent', () => {
-  let component: CommentdialogComponent;
-  let fixture: ComponentFixture<CommentdialogComponent>;
+    beforeEach(async(() => {
+       
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ CommentdialogComponent ]
-    })
-    .compileComponents();
-  }));
+        TestBed.configureTestingModule({
+          imports: [ MatDialogModule, BrowserAnimationsModule],
+          declarations: [CommentdialogComponent],
+          providers: [
+            { provide: MatDialogRef, useValue: {} },
+            { provide: MAT_DIALOG_DATA, useValue: { obj: new Movie()} },
+            MatSnackBar          ],
+          schemas: [NO_ERRORS_SCHEMA]
+        })
+          .compileComponents();
+      }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(CommentdialogComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+      beforeEach( () => {
+            fixture = TestBed.createComponent(CommentdialogComponent);
+            comp = fixture.componentInstance;
+            
+      });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+      it ('should create component', () => {
+        expect(comp).toBeTruthy();
+    });
+
+    
+
+
 });
