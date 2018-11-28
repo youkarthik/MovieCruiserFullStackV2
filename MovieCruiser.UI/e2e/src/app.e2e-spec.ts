@@ -48,7 +48,7 @@ describe('movie-cruiser-angular-ui App', () => {
 
     const count = element.all(by.css('.mat-card-title')).count();
     expect(count).toBe(20);
-    for(let i = 0; i < 20; i++) {
+    for(let i = 0; i < 5; i++) {
       expect(element.all(by.css('.mat-card-title')).get(i).getText().then(x => x.toLowerCase())).toContain('best');
     }
   });
@@ -60,8 +60,10 @@ describe('movie-cruiser-angular-ui App', () => {
     // const count = element.all(by.css('.card')).count();
     // expect(count).toBe(20);
     element.all(by.css('.movie-thumbnail')).get(0).element(by.css('.clsAddButton')).click();
-    browser.element(by.id('watchlistMovieComment')).sendKeys('samle test comment for the watch list movie');
-    browser.element(by.css('.clsSaveCommentsBtn')).click();
+    browser.element(by.css('clsCommentsInput')).sendKeys('sample test comment for the watch list movie');
+    browser.element(by.css('.clsAddWatchlistsBtn')).click();
+    browser.driver.sleep(1000);
+    browser.element(by.css('.clsCloseBtn')).click();
     //element(by.css('.addButton')).click();
   })
 

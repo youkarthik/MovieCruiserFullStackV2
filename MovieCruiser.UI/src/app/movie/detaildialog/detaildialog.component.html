@@ -29,7 +29,7 @@
         </div>
         <div class="row">
           <mat-form-field class="full-width-field">
-            <textarea matInput placeholder="Comments (optional)" [(ngModel)]="movie.comments"></textarea>
+            <textarea matInput placeholder="Comments (optional)" [(ngModel)]="movie.comments" class="clsCommentsInput"></textarea>
           </mat-form-field>
         </div>
       </div>
@@ -37,7 +37,7 @@
   </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button (click)="onCancel()" color="warn">Close</button>
+  <button mat-button (click)="onCancel()" color="warn" class="clsCloseBtn">Close</button>
   <button  *ngIf="!movie.isInWatchlist" mat-raised-button color="primary" (click)="onAddWatchlist()" class="clsAddWatchlistsBtn">Add to Watchlist</button>
   <button  *ngIf="movie.isInWatchlist" mat-raised-button color="warn" (click)="onRemoveWatchlist()" class="clsRemoveWatchlistBtn">Remove from Watchlist</button>
 </mat-dialog-actions>
