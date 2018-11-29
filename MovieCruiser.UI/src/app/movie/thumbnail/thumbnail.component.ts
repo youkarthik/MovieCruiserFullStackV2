@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CommentdialogComponent } from '../commentdialog/commentdialog.component';
 import { DetaildialogComponent } from '../detaildialog/detaildialog.component';
 
+//thumbnail component to display a single movie summary details
 @Component({
   selector: 'app-thumbnail',
   templateUrl: './thumbnail.component.html',
@@ -21,6 +22,7 @@ export class ThumbnailComponent implements OnInit {
   ngOnInit() {
   }
 
+  //add button event handler, not used  and replaced by view button
   onAdd()
   {
       this.movieService.getWatchlistMovie(this.movie.id).subscribe((movie) => this.snackBar.open("Movie already in watchlist", '', { duration: 5000 }),
@@ -28,6 +30,7 @@ export class ThumbnailComponent implements OnInit {
     
   }
 
+  //view button event handler
   onView()
   {
     let dialogRef = this.matDlg.open(DetaildialogComponent,
@@ -37,6 +40,7 @@ export class ThumbnailComponent implements OnInit {
     
   }
 
+  //add to watchlist method works based on dialog input
   add()
   {
     
@@ -57,7 +61,7 @@ export class ThumbnailComponent implements OnInit {
   }
 
  
-
+//update watchlist comment button click handler
   onUpdate()
   {
     let dialogRef = this.matDlg.open(CommentdialogComponent,
@@ -76,6 +80,7 @@ export class ThumbnailComponent implements OnInit {
       });
   }
 
+  //remove from watchlist button event handler
   onRemove()
   {
     this.movieService.deleteWatchlistMovie(this.movie.id).subscribe(

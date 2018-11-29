@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpHeaders, HttpClient} from "@angular/common/http";
 import { AuthenticationService } from "../authentication/authentication.service";
 
+//httpclient wrapper class to append the token header
 @Injectable()
 export class MovieHttpClient{
 

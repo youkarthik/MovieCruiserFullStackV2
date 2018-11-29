@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 
 import { Movie } from '../movie';
+//container component to show the list of movie thumbnails of watchlist as well as tmdb movies
 @Component({
   selector: 'app-container',
   templateUrl: './container.component.html',
@@ -23,6 +24,7 @@ export class ContainerComponent implements OnInit {
     this.load();
   }
 
+  //load method based on the movie type will fetch the movie details from corresponding source
   load() {
     if (this.movieType) {
       if (this.movieType == "watchlist") {
@@ -38,6 +40,7 @@ export class ContainerComponent implements OnInit {
     }
   }
 
+  //eventhandler to refresh the screen
   reload(arg: any) {
     this.load();
   }

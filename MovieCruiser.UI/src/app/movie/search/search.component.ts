@@ -15,6 +15,7 @@ export class SearchComponent implements OnInit {
     this.movies = [];
   }
 
+  //onit fetch the query string and search movies from tmdb service and display
   ngOnInit() {
     this.route.queryParams
       .subscribe(params => {

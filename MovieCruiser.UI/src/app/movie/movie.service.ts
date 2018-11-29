@@ -17,6 +17,7 @@ export class MovieService {
   fullWatchlistEndpoint = `${this.watchlistApiServerPath}/api/movie`;
   constructor(private http: HttpClient, private movieHttp: MovieHttpClient) { }
 
+  //get movies service call to fetch movie details from tmdb api
   getMovies(type: string, pageNumer: number = 1): Observable<Array<Movie>> {
     if (type) {
       const endpoint = `${this.tmdbEndpoint}movie/${type}?api_key=${this.apiKey}&page=${pageNumer}`;
@@ -24,9 +25,13 @@ export class MovieService {
     }
 
   }
+
+  //get watchlist movies service call to get mmovie details from watchlist api
   getWatchListMovies(): Observable<Array<Movie>> {
     return this.movieHttp.get<Array<Movie>>(this.fullWatchlistEndpoint).pipe(retry(3), catchError(this.handleError));
   }
+
+  //search movies service call to get movies from tmdb api
   searchMovies(searchString: string): Observable<Array<Movie>> {
     const endpoint = `${this.searchEndpoint}/movie?api_key=${this.apiKey}&&language=en-US&page=1&include_adult=false&query=${searchString}`;
     if (searchString.length > 0) {
@@ -45,10 +50,13 @@ export class MovieService {
     );
   }
 
+  //get a watchlist movie by its id using watchlist service
   getWatchlistMovie(id: number): Observable<Movie> {
     const endpoint = `${this.fullWatchlistEndpoint}/${id}`;
     return this.movieHttp.get<Movie>(endpoint);
   }
+
+  //delete watchlist movie service method
   deleteWatchlistMovie(id: number): Observable<{}> {
     const endpoint = `${this.fullWatchlistEndpoint}/${id}`;
     return this.movieHttp.delete(endpoint)
@@ -57,6 +65,8 @@ export class MovieService {
       );
 
   }
+
+  //update watchlist movie comments service method
   updateWatchlistMovieComments(id: number, comments: string): Observable<{}> {
     // const httpOptions = {
     //   headers: new HttpHeaders({
@@ -68,6 +78,8 @@ export class MovieService {
       catchError(this.handleError)
     );
   }
+
+  //transform the tmdb path prefixed with the full url
   transformPosterPath(movies): Array<Movie> {
     return movies.map(movie => {
       movie.poster_path = `${this.imagePrefix}${movie.poster_path}`;

@@ -60,7 +60,10 @@ describe('movie-cruiser-angular-ui App', () => {
     // const count = element.all(by.css('.card')).count();
     // expect(count).toBe(20);
     element.all(by.css('.movie-thumbnail')).get(0).element(by.css('.clsAddButton')).click();
-    browser.element(by.css('clsCommentsInput')).sendKeys('sample test comment for the watch list movie');
+    browser.driver.sleep(2000);
+    browser.element(by.id('watchlistDetailMovieComment')).clear();
+    browser.element(by.id('watchlistDetailMovieComment')).sendKeys('sample test comment for the watch list movie');
+    
     browser.element(by.css('.clsAddWatchlistsBtn')).click();
     browser.driver.sleep(1000);
     browser.element(by.css('.clsCloseBtn')).click();

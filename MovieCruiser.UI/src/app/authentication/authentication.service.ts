@@ -18,36 +18,42 @@ export class AuthenticationService {
   constructor(private httpClient: HttpClient) {
     
   }
-
+  //setting member userid
   setUserId(userId: string) {
     this.userId = userId;
   }
+  //get the member userid value
   getUserId() {
     return this.userId;
   }
 
+  //service method call to register new user
   registerUser(user: User) {
     return this.httpClient.post(this.authSvcEndpoint + "/registeruser", user).pipe(
       catchError(this.handleError));
   }
 
+  //service method call to check user is authenticated
   loginUser(user: User) {
     return this.httpClient.post<string>(this.authSvcEndpoint + "/login", user).pipe(
       catchError(this.handleError));
   }
 
+  //set the jwt token in localstorage
   setToken(token: string) {
     return localStorage.setItem(TOKEN_NAME, token);
   }
 
+  //get the token from localstorage
   getToken() {
     return localStorage.getItem(TOKEN_NAME);
   }
 
   removeToken() {
     return localStorage.removeItem(TOKEN_NAME);
+  
   }
-
+  //method to check whether token expired
   isTokenExpired(token?: string) {
     if (!token) token = this.getToken();
     if (!token) return true;
@@ -56,6 +62,7 @@ export class AuthenticationService {
     return !(date.valueOf() > new Date().valueOf())
   }
 
+  //method to get the token expiration date
   getTokenExpirationDate(token: string): Date {
     const decoded = jwt_decode(token);
     if (decoded.exp === undefined) return null;

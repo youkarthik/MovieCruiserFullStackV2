@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
+//Matdialog component to receive input for watchlist comment updation
 @Component({
   selector: 'app-commentdialog',
   templateUrl: './commentdialog.component.html',
@@ -15,6 +16,7 @@ export class CommentdialogComponent implements OnInit {
   ngOnInit() {
   }
 
+  //cancel button click on dialog
   onCancel()
   {
     this.dialogRef.close();

@@ -4,6 +4,7 @@ import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
 import { LoginLayoutComponent } from "../_layouts/login-layout.component";
 
+//routes configuration related to authenctication
 const authRoutes: Routes = [
     {
         path:'',
